@@ -10,9 +10,136 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+const myTeam = [];
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+
+// use inquirer to ask questions of a manager, and then put the data into the class
+function generateAManager() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "What is your name, Manager?",
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "Employee ID:",
+        validate: (v) => !isNaN(v) || "You must enter a number.",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "Enter your E-mail:",
+      },
+      {
+        type: "input",
+        name: "officeNumber",
+        message: "Enter your office number:",
+        validate: (v) => !isNaN(v) || "You must enter a number.",
+      },
+    ])
+    .then((result) => {
+      myTeam.push(
+        new Manager(result.name, result.id, result.email, result.officeNumber)
+      );
+      addTeamMember();
+    });
+}
+
+function generateAEnginner() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "Enter name:",
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "Enter Employee ID:",
+        validate: (v) => !isNaN(v) || "You must enter a number.",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "Enter E-mail:",
+      },
+    ])
+    .then((result) => {
+      myTeam.push(
+        new Engineer(result.name, result.id, result.email, result.github)
+      );
+      addTeamMember();
+    });
+}
+
+function generateAIntern() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "Name:",
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "Enter slave ID:",
+        validate: (v) => !isNaN(v) || "You must enter a number.",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "Enter E-mail:",
+      },
+      {
+        type: "input",
+        name: "officeNumber",
+        message: "Where were you schooled:",
+      },
+    ])
+    .then((result) => {
+      myTeam.push(
+        new Intern(result.name, result.id, result.email, result.school)
+      );
+      addTeamMember();
+    });
+}
+function addTeamMember() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "type",
+        message:
+          "What type of employee do you want to enter? Engineer, Intern or type 'Done' to quit",
+      },
+    ])
+    .then((result) => {
+      if (result.type === "Done") {
+        // convert employees to html and store it
+        let teamHtml = render(myTeam);
+        fs.writeFileSync("./output/team.html", teamHtml);
+      }
+      if (result.type === "Enginner") {
+        generateAEnginner();
+      }
+      if (result.type === "Intern") {
+        generateAIntern();
+      }
+    });
+}
+
+function main() {
+  generateAManager();
+}
+
+main();
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
