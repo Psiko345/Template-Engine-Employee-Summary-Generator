@@ -69,6 +69,11 @@ function generateAEnginner() {
         name: "email",
         message: "Enter E-mail:",
       },
+      {
+        type: "input",
+        name: "github",
+        message: "Enter github username:",
+      },
     ])
     .then((result) => {
       myTeam.push(
