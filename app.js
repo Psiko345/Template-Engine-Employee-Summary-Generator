@@ -104,7 +104,7 @@ function generateAIntern() {
       },
       {
         type: "input",
-        name: "officeNumber",
+        name: "school",
         message: "Where were they schooled:",
       },
     ])
