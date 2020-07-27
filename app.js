@@ -89,7 +89,7 @@ function generateAIntern() {
       {
         type: "input",
         name: "id",
-        message: "Enter slave ID:",
+        message: "Enter ID:",
         validate: (v) => !isNaN(v) || "You must enter a number.",
       },
       {
@@ -100,7 +100,7 @@ function generateAIntern() {
       {
         type: "input",
         name: "officeNumber",
-        message: "Where were you schooled:",
+        message: "Where were they schooled:",
       },
     ])
     .then((result) => {
