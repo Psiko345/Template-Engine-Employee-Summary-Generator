@@ -117,7 +117,7 @@ function addTeamMember() {
         type: "input",
         name: "type",
         message:
-          "What type of employee do you want to enter? Engineer, Intern or type 'Done' to quit",
+          "What type of employee do you want to enter? Engineer, Intern or type 'Done' to quit:",
       },
     ])
     .then((result) => {
@@ -126,7 +126,7 @@ function addTeamMember() {
         let teamHtml = render(myTeam);
         fs.writeFileSync("./output/team.html", teamHtml);
       }
-      if (result.type === "Enginner") {
+      if (result.type === "Engineer") {
         generateAEnginner();
       }
       if (result.type === "Intern") {
